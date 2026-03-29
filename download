@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Скачать приложение для Windows и macOS</title>
+  <meta name="description" content="Скачайте приложение для Windows и macOS" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.14);
+      --text: #f5f7fb;
+      --muted: #b9c0d0;
+      --primary: #6ea8fe;
+      --primary-hover: #8ab8ff;
+      --secondary: #1b2440;
+      --success: #34d399;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 24px;
+      --max-width: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(110,168,254,0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(52,211,153,0.12), transparent 25%),
+        linear-gradient(180deg, #0b1020 0%, #0d1328 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(calc(100% - 32px), var(--max-width)); margin: 0 auto; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(11,16,32,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--success));
+      color: #08101f;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 700;
+      transition: 0.2s ease;
+      cursor: pointer;
+      min-height: 52px;
+    }
+
+    .btn-primary { background: var(--primary); color: #0b1020; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+    .hero { padding: 72px 0 48px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 68px);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -1.6px;
+    }
+
+    .hero p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 20px);
+      line-height: 1.6;
+      max-width: 660px;
+    }
+
+    .cta-row, .download-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .info-grid, .features {
+      display: grid;
+      gap: 18px;
+    }
+
+    .info-grid { grid-template-columns: repeat(3, 1fr); margin-top: 18px; }
+    .features { grid-template-columns: repeat(3, 1fr); }
+
+    .card, .feature, .download-card, .requirements-card, .preview-panel {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .card strong, .meta strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .preview-panel {
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    }
+
+    .window {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #10182d;
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.45); }
+
+    .window-body {
+      padding: 24px;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .app-badge {
+      width: 84px;
+      height: 84px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--success));
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .meta > div {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .section { padding: 32px 0 72px; }
+    .section-title { font-size: clamp(28px, 3vw, 42px); margin: 0 0 12px; letter-spacing: -0.8px; }
+    .section-text { color: var(--muted); font-size: 18px; margin: 0 0 28px; line-height: 1.6; max-width: 760px; }
+
+    .feature h3 { margin: 0 0 10px; font-size: 20px; }
+    .feature p, .requirements-card p, .download-card p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    code.inline {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .footer { padding: 22px 0 44px; color: var(--muted); font-size: 14px; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .download-grid, .features, .info-grid, .meta { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 40px; }
+      .card, .feature, .download-card, .requirements-card, .preview-panel { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#top">
+        <span class="logo-badge">D</span>
+        <span>DesktopApp</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Преимущества</a>
+        <a href="#download">Скачать</a>
+        <a href="#requirements">Требования</a>
+      </nav>
+      <a class="btn btn-secondary" href="#download">Скачать</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="tag">Windows и macOS</div>
+          <h1>Скачайте приложение для компьютера за один клик</h1>
+          <p>
+            Простая страница для скачивания desktop-приложения: прямые ссылки на установочные файлы,
+            версия сборки, размер файла и системные требования.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="files/DesktopApp-Setup-1.0.0.exe" download>Скачать для Windows</a>
+            <a class="btn btn-secondary" href="files/DesktopApp-macOS-1.0.0.dmg" download>Скачать для macOS</a>
+          </div>
+
+          <div class="info-grid">
+            <div class="card">
+              <strong>18 MB</strong>
+              <span>Размер файла</span>
+            </div>
+            <div class="card">
+              <strong>v1.0.0</strong>
+              <span>Текущая версия</span>
+            </div>
+            <div class="card">
+              <strong>SHA256</strong>
+              <span>Проверка целостности</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="window">
+            <div class="window-bar">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <div class="window-body">
+              <div>
+                <div class="app-badge"></div>
+                <h2 style="margin:18px 0 8px; font-size:32px;">DesktopApp</h2>
+                <p style="margin:0; color:var(--muted); line-height:1.6;">
+                  Небольшое desktop-приложение, которое пользователь скачивает прямо с сайта без магазина приложений.
+                </p>
+              </div>
+              <div class="meta">
+                <div>
+                  <strong>.exe</strong>
+                  <span>Windows</span>
+                </div>
+                <div>
+                  <strong>.dmg</strong>
+                  <span>macOS</span>
+                </div>
+                <div>
+                  <strong>.zip</strong>
+                  <span>Portable build</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <h2 class="section-title">Что важно на странице скачивания</h2>
+        <p class="section-text">
+          Для ПК-приложения лучше всего работают короткое описание, заметная кнопка прямой загрузки
+          и понятная техническая информация рядом с кнопкой.
+        </p>
+
+        <div class="features">
+          <article class="feature">
+            <h3>Прямая загрузка</h3>
+            <p>Кнопка ведёт прямо на установочный файл: <code class="inline">.exe</code>, <code class="inline">.msi</code>, <code class="inline">.dmg</code> или <code class="inline">.zip</code>.</p>
+          </article>
+          <article class="feature">
+            <h3>Понятные детали</h3>
+            <p>Покажите размер файла, номер версии, дату релиза и короткую инструкцию по установке.</p>
+          </article>
+          <article class="feature">
+            <h3>Доверие к файлу</h3>
+            <p>Добавьте цифровую подпись, SHA256 и страницу с ответами на частые вопросы по установке.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="container download-grid">
+        <div class="download-card">
+          <h2 class="section-title" style="margin-top:0;">Скачать desktop-приложение</h2>
+          <p>
+            Самый простой вариант: положить установочные файлы в папку <code class="inline">files/</code>
+            рядом с <code class="inline">index.html</code>. Тогда ссылки будут работать без сервера и базы данных.
+          </p>
+          <div class="download-links" style="margin-top:18px;">
+            <a class="btn btn-primary" href="files/DesktopApp-Setup-1.0.0.exe" download>Скачать .exe</a>
+            <a class="btn btn-secondary" href="files/DesktopApp-macOS-1.0.0.dmg" download>Скачать .dmg</a>
+            <a class="btn btn-secondary" href="files/DesktopApp-Portable-1.0.0.zip" download>Скачать .zip</a>
+          </div>
+        </div>
+
+        <div class="requirements-card" id="requirements">
+          <h3 style="margin:0 0 10px; font-size:24px;">Системные требования</h3>
+          <p>Windows 10/11 64-bit или macOS 12+. Свободное место: 100 MB. RAM: 4 GB.</p>
+          <div style="margin-top:18px; padding:16px; border-radius:20px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); color:var(--muted); line-height:1.7;">
+            <strong style="display:block; color:var(--text); margin-bottom:8px;">Проверка файла</strong>
+            SHA256: 9f3c-example-hash-change-me
+          </div>
+          <p style="margin-top:18px;">support@desktopapp.com</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 DesktopApp. Все права защищены.
+    </div>
+  </footer>
+</body>
+</html>
